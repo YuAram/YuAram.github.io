@@ -1,2 +1,2 @@
 # YuAram.github.io
-Github Web portfolio
+Github Web portfolio.
