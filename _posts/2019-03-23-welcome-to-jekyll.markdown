@@ -1,22 +1,28 @@
 ---
 layout: post
-title:  "Test post"
-date:   2023-03-25 22:00:00 +0530
-categories: Javascript
+title:  "Integrating razorpay into your webapp"
+date:   2019-03-23 21:03:36 +0530
+categories: Javascript NodeJS
 ---
-Test post.
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
 
 ```javascript
-// test
-let test = "test";
+const Razorpay = require('razorpay');
+
+let rzp = Razorpay({
+	key_id: 'KEY_ID',
+	secret: 'name'
+});
+
+// capture request
+rzp.capture(payment_id, cost)
+	.then(function (data) {
+		return 2;
+	})
 ```
 
-Mail > [aramyu.dev@gmail.com]
-<br/>
-Blog > [https://yuaram.github.io]
-<br/>
-Git > [https://github.com/YuAram]
+Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll Talk][jekyll-talk].
 
-[aramyu.dev@gmail.com]: aramyu.dev@gmail.com
-[https://github.com/YuAram]: https://github.com/YuAram
-[https://yuaram.github.io]: https://yuaram.github.io
+[jekyll-docs]: https://jekyllrb.com/docs/home
+[jekyll-gh]:   https://github.com/jekyll/jekyll
+[jekyll-talk]: https://talk.jekyllrb.com/
