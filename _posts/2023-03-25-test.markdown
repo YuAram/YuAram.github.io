@@ -1,0 +1,22 @@
+---
+layout: post
+title:  "Test post"
+date:   2023-03-25 00:00:00 +0530
+categories: Javascript
+---
+Test post.
+
+```javascript
+// test
+let test = "test";
+```
+
+Mail > [aramyu.dev@gmail.com]
+<br/>
+Blog > [https://yuaram.github.io]
+<br/>
+Git > [https://github.com/YuAram]
+
+[aramyu.dev@gmail.com]: aramyu.dev@gmail.com
+[https://github.com/YuAram]: https://github.com/YuAram
+[https://yuaram.github.io]: https://yuaram.github.io
