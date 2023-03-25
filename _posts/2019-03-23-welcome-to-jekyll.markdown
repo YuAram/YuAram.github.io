@@ -2,7 +2,7 @@
 layout: post
 title:  "Test post"
 date:   2023-03-25 22:00:00 +0530
-categories: TEST
+categories: Javascript
 ---
 Test post.
 
