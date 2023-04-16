@@ -42,6 +42,7 @@ categories: Javascript
 - UNION RESULT: UNION, UNION ALL 절로 생성된 임시 테이블을 뜻함.
 - LATERAL DERIVED: The SELECT uses a Lateral Derived optimization.
 <br/><br/>
+
 ##### table
 해당 단계에서 접근하는 테이블의 이름
 <br/><br/>
@@ -61,6 +62,7 @@ categories: Javascript
 - system: 테이블에 row가 1건이라 매칭되는 row도 1건인 경우
 - unique_subquery: 서브쿼리에서 unique한 값이 생성되는 경우. index lookup function이 사용됨.(서브쿼리 최적화)
 <br/><br/>
+
 ##### possible_keys
 레코드에 접근하기 위해 사용할 수 있는 키, 혹은 인덱스 목록
 <br/><br/>
@@ -80,8 +82,8 @@ categories: Javascript
 이상의 항목 외의 특이 사항들이 있다면 해당 내용을 표시
 
 <br/><br/><br/>
-개인적인 이해를 바탕으로 작성한 글 입니다. <br/>
-잘못된 내용, 피드백은 언제든 환영합니다! 🥺🥺🥺
+**_개인적인 이해를 바탕으로 작성한 글 입니다. <br/>
+잘못된 내용, 피드백은 언제든 환영합니다!_** 🥺🥺🥺
 <br/><br/><br/>
 
 ### 참고 사이트
