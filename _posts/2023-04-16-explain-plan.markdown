@@ -1,33 +1,40 @@
 ---
 layout: post
-title:  "[DB] EXPLAIN PLAN"
-date:   2023-04-16 00:00:00 +0530
-categories: Javascript
+title: "[DB] EXPLAIN PLAN"
+date: 2023-04-16 00:00:00 +0530
+categories: DB
 ---
 
 <br/>
 
 #### EXPLAIN의 정의
+
 - SQL문의 액세스 경로를 확인하고 튜닝할 수 있도록 SQL문을 분석, 해석해 실행계획을 수립.
 - SQL문이 어떻게 실행되고 작동하는지를 점검하기 위해 사용.
 - **ANALYZE** : 쿼리를 실제 실행한 후 실행한 쿼리 계획을 보여준다.<br/>
-언뜻 보기엔 ANALYZE가 더 유용해 보이지만, 쿼리 실행 시 디비에 부하가 가해질 수 있고, 레코드가 늘어나거나 하면 실행 계획 또한 바뀔 수 있으므로 실 서비스에서 실행시와 동일한 정보를 알려주지는 않음.
+  언뜻 보기엔 ANALYZE가 더 유용해 보이지만, 쿼리 실행 시 디비에 부하가 가해질 수 있고, 레코드가 늘어나거나 하면 실행 계획 또한 바뀔 수 있으므로 실 서비스에서 실행시와 동일한 정보를 알려주지는 않음.
 
 <br/>
 
 #### EXPLAIN 사용 방법
+
 - 실행 할 쿼리 앞에 EXPLAIN을 붙여 준다.
-![](../../../../../var/folders/8p/bbdkvm910vn6dxs8l7d_pqqh0000gn/T/TemporaryItems/NSIRD_screencaptureui_fhIfQD/스크린샷 2023-04-16 오전 9.50.51.png)
+  ![](../../../../../var/folders/8p/bbdkvm910vn6dxs8l7d_pqqh0000gn/T/TemporaryItems/NSIRD_screencaptureui_fhIfQD/스크린샷 2023-04-16 오전 9.50.51.png)
 
 <br/>
 
 #### EXPLAIN 항목
+
 ##### id
+
 대상 쿼리문에 JOIN 이 포함되어 있을 때, 어떠한 순서로 테이블이 JOIN 되는지를 나타내는 값
 <br/><br/>
+
 ##### select_type
+
 각 단계를 실행할 때 어떤 종류의 SELECT 가 실행되었는지를 나타냄.
 <br/>
+
 - DEPENDENT SUBQUERY: 서브 쿼리가 외부 쿼리의 결과에 의존할때 표현된다.
 - DEPENDENT UNION: UNION, UNION ALL 절이 외부 결과에 의존할때 표현된다.
 - DERIVED: FROM 절에서 사용되는 서브쿼리를 의미한다. FROM 절에 사용된 서브쿼리(인라인 뷰라고 표현한다.)의 경우 임시 테이블을 생성해야하므로 파생되었다는 의미의 DERIVED가 표현된다.
@@ -40,14 +47,18 @@ categories: Javascript
 - UNION: UNION, UNION ALL 절에 사용된 쿼리
 - UNION RESULT: UNION, UNION ALL 절로 생성된 임시 테이블을 뜻함.
 - LATERAL DERIVED: The SELECT uses a Lateral Derived optimization.
-<br/><br/>
+  <br/><br/>
 
 ##### table
+
 해당 단계에서 접근하는 테이블의 이름
 <br/><br/>
+
 ##### type
+
 테이블 내에서 접근이 필요한 레코드를 어떻게 찾았는지에 대한 정보
 <br/>
+
 - ALL: 전체 데이터 block을 스캔
 - const: 옵티마이저가 unique/primary key를 사용하여 매칭되는 row가 1건인 경우
 - eq_ref: 1:1의 join 관계. unique/primary key를 사용하여 join을 처리함.
@@ -60,24 +71,35 @@ categories: Javascript
 - ref: 1:n의 join 관계. non-unique 인덱스가 사용되거나, 복합키로 구성된 인덱스 중, 일부 컬럼만 이용하여 조인될 경우
 - system: 테이블에 row가 1건이라 매칭되는 row도 1건인 경우
 - unique_subquery: 서브쿼리에서 unique한 값이 생성되는 경우. index lookup function이 사용됨.(서브쿼리 최적화)
-<br/><br/>
+  <br/><br/>
 
 ##### possible_keys
+
 레코드에 접근하기 위해 사용할 수 있는 키, 혹은 인덱스 목록
 <br/><br/>
+
 ##### key
+
 레코드에 접근하기 위해 어떠한 index를 참조하는지, 인덱스 중 몇 바이트를 참조했는지에 대한 정보
 <br/><br/>
+
 ##### key_len
+
 사용 된 키의 바이트 수(둘 이상의 컬럼으로 구성된 인덱스를 참조했을 경우에만 의미가 있음)
 <br/><br/>
+
 ##### ref
+
 인덱스 검색 시 비교 연산 등에 사용되는 기준값
 <br/><br/>
+
 ##### rows
+
 필요한 레코드들을 추려내는 과정에서 몇 개의 레코드에 접근해야 하는지를 예측하여 보여줌
 <br/><br/>
+
 ##### Extra
+
 이상의 항목 외의 특이 사항들이 있다면 해당 내용을 표시
 
 <br/><br/><br/>
@@ -86,6 +108,7 @@ categories: Javascript
 <br/><br/><br/>
 
 ### 참고 사이트
+
 <hr>
 
 [MariaDB에서의 쿼리 계획(Query plan) 활용](https://blog.ifunfactory.com/2017/05/29/mariadb%EC%97%90%EC%84%9C%EC%9D%98-%EC%BF%BC%EB%A6%AC-%EA%B3%84%ED%9A%8Dquery-plan-%ED%99%9C%EC%9A%A9/)
