@@ -31,8 +31,9 @@ $ npm i -g npm
 $ npm i --save lodash
 ```
 
-```javascript
+<br/>
 /// 사용하고자 하는 컴포넌트에 import
+```javascript
 import _ from "lodash";
 ```
 
@@ -40,7 +41,108 @@ import _ from "lodash";
 
 #### 자주 사용하는 lodash 메소드
 
-#####
+**\_.findIndex**
+컬렉션에서 주어진 조건을 만족하는 첫 번째 요소의 인덱스를 반환
+
+```javascript
+var users = [
+  { user: "lee", active: true },
+  { user: "kim", active: false },
+  { user: "yu", active: false },
+];
+_.findIndex(users, { user: "yu" });
+// => 1
+
+_.findIndex(users, { user: "park" });
+// => -1
+```
+
+<br/>
+
+**\_.filter**
+컬렉션에서 특정 조건을 만족하는 요소들로 이루어진 새로운 배열을 반환
+
+```javascript
+var users = [
+  { user: "lee", age: 29, active: true },
+  { user: "kim", age: 33, active: false },
+  { user: "yu", age: 31, active: false },
+];
+_.filter(users, ["active", false]);
+// => [Object {user: "kim", age: 33, active: false}, Object {user: "yu", age: 31, active: false}]
+// The `_.matches` iteratee shorthand.
+_.filter(users, { age: 36 });
+// => []
+```
+
+<br/>
+
+**\_.cloneDeep**
+객체나 배열을 깊은 복사하여 새로운 객체 또는 배열을 반환
+
+```javascript
+var objects = [{ a: 1 }, { b: 2 }];
+
+var deep = _.clone(objects);
+console.log(deep[0] === objects[0]);
+// =>true
+
+var deep2 = _.cloneDeep(objects);
+console.log(deep2[0] === objects[0]);
+// 깊은 복사는 원래 객체의 모든 속성과 값을 새로운 메모리 공간에 복사하는 것을 의미
+// 깊은 복사를 수행했기 때문에 deep[0]과 objects[0]은 메모리 상에서 서로 다른 객체를 참조
+// => false
+```
+
+<br/>
+
+**\_.remove**
+컬렉션에서 주어진 조건을 만족하는 요소들을 제거하고 해당 요소들로 이루어진 새로운 배열을 반환
+
+```javascript
+var users = [
+  { name: "lee", age: 29, active: true },
+  { name: "kim", age: 33, active: false },
+  { name: "park", age: 33, active: false },
+  { name: "yu", age: 31, active: false },
+];
+
+var test = _.remove(users, { name: "park" });
+console.log(test); // => [Object {name: "park", age: 33, active: false}]
+console.log(users);
+// => Array (3 items)
+// 0: Object {name: "lee", age: 29, active: true}
+// 1: Object {name: "kim", age: 33, active: false}
+// 2: Object {name: "yu", age: 31, active: false}
+```
+
+<br/>
+
+**\_.chain**
+함수 체이닝(여러 개의 함수를 순차적으로 연결하여 하나의 흐름으로 처리)을 지원하는 기능을 제공
+
+```javascript
+var users = [
+  { user: "kim", age: 33 },
+  { user: "yu", age: 31 },
+  { user: "lee", age: 29 },
+];
+var youngest = _.chain(users)
+  .sortBy("age")
+  .map(function (o) {
+    console.log(o);
+    // age 기준 배열 재정렬
+    // Object {user: "lee", age: 29}
+    // Object {user: "yu", age: 31}
+    // Object {user: "kim", age: 33}
+    return o.user + " is " + o.age;
+    // => "lee is 29" (재정렬 된 배열 내 0번째 값 출력)
+  })
+  .head()
+  .value();
+```
+
+<br/>
 
 <br/><br/><br/>
 **_개인적인 이해를 바탕으로 작성한 글 입니다. <br/>
