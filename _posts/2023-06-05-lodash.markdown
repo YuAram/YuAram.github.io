@@ -51,7 +51,7 @@ var users = [
   { user: "yu", active: false },
 ];
 _.findIndex(users, { user: "yu" });
-// => 1
+// => 2
 
 _.findIndex(users, { user: "park" });
 // => -1
