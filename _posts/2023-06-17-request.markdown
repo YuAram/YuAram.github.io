@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[spring] @RequestBody/@ResponseBody, @RequestParam"
+title: "[spring] @RequestBody/@ResponseBody, @RequestParam 이란?"
 date: 2023-06-17 00:00:00 +0530
 categories: spring
 ---
@@ -71,7 +71,7 @@ public User getUser(@PathVariable int id) {
 
 <br/>
 
-**세부 속성**
+**RequestParam 세부 속성**
 
 - name: 쿼리 파라미터의 이름을 명시적으로 지정. 기본적으로 매개변수 이름과 일치 함.
 - required: 필수적인 파라미터인지 여부를 지정. 기본값은 true이며, 필수 파라미터가 누락되면 400 Bad Request 응답이 반환.
