@@ -1,100 +1,80 @@
 ---
 layout: post
-title: "[spring] @RequestBody/@ResponseBody, @RequestParam 이란?"
-date: 2023-06-17 00:00:00 +0530
+title: "[HTTP웹기본지식_인프런] 인터넷 네트워크 - IP, TCP, UDP, PORT, DNS"
+date: 2023-09-02 00:00:00 +0530
 categories: spring
 ---
 
 <br/>
 
-#### RequestBody와 ResponseBody?
+#### IP (Internet Protocol)
 
-- Spring에서 비동기 처리를 위해 @RequestBody와 @ResponseBody를 주로 사용
-- @RequestBody는 HTTP 요청의 본문에 포함된 데이터를 읽어와서 매개변수에 바인딩하는 데 사용
-- @ResponseBody는 메서드의 반환 값을 HTTP 응답의 본문에 쓰기 위해 사용
-- 두 어노테이션을 함께 사용하면 비동기적인 요청과 응답을 처리할 수 있습니다.
-- 스프링 4.0 버전 이후부터는 @ResponseBody를 생략하고, 컨트롤러 메서드에 @RestController 어노테이션을 사용(@ResponseBody를 적용한 것과 동일한 효과)
-- 프로젝트 설정이나 커스텀 어노테이션 등 특정 상황에서는 @ResponseBody 어노테이션을 명시적으로 사용해야 할 수도 있음.(@Controller인 경우에 바디를 자바객체로 받기 위해서는 @ResponseBody 어노테이션을 반드시 명시해주어야 함)
+- 컴퓨터 네트워크에서 사용되는 주요 프로토콜
+- 지정한 IP 주소에 데이터를 송수신하는 데 사용
+- 패킷(Packet)이라는 통신 단위로 데이터 전달
 
 <br/>
 
-#### 클라이언트와 서버의 비동기 통신
+#### IP 패킷 정보
 
-- 새로고침 없이 이루어지는 동작들은 대부분 비동기 통신으로 이루어 짐.
-- 클라이언트에서 서버로 요청 메시지를 보낼 떄, 본문에 데이터를 담아 보내야 하고, 서버에서 클라이언트로 응답을 보낼때에도 본문에 데이터를 담아 보내야 함. 이때 데이터를 담는 본문이 바로 body.
-  즉, 요청본문 requestBody, 응답본문 responseBody를 담아 보내야 함.
-- 요청 메시지: 클라이언트에서 서버를 통신하는 메시지
-- 응답 메시지: 서버에서 클라이언트로 통신하는 메시지
-- 데이터 형식은 가장 대표적으로 사용되는 것이 JSON 형식
+- 데이터 통신 네트워크에서 정보를 전달하는 데 사용되는 패킷 형식
+- IP 패킷은 송신자에서 수신자로 데이터를 전달하기 위한 주요 정보를 담고 있음
+- 패킷 단위로 데이터를 전달하며, 즉, 전송 데이터(보낼 메시지)와 함께 출발지 IP(클라이언트 IP), 목적지 IP(서버 IP) 등을 함께 묶어 패킷으로 만든 후 전달
 
 <br/>
 
-**@RequestBody**
+**IP 헤더 (IP Header)**
 
-```java
-@PostMapping("/users")
-public ResponseEntity<User> createUser(@RequestBody User user) {
-    // user 객체를 사용하여 사용자 생성 로직을 수행합니다.
-    // ...
-    return ResponseEntity.ok(user);
-}
-```
-
-- POST 요청의 본문을 User 객체로 변환. 따라서 요청의 본문에 포함된 JSON 또는 XML 데이터는 User 객체의 필드에 매핑.
-- 이후 컨트롤러 메서드에서는 user 객체를 사용하여 적절한 비즈니스 로직을 수행하고, ResponseEntity.ok()를 사용하여 HTTP 응답을 반환 함.
-- 일반적인 GET/POST의 요청 파라미터라면 @RequestBody를 사용할 일이 없음
-
-<br/>
-
-**@ResponseBody**
-
-```java
-@GetMapping("/users/{id}")
-@ResponseBody
-public User getUser(@PathVariable int id) {
-    // id에 해당하는 사용자 정보를 조회하고 User 객체를 반환합니다.
-    // ...
-    return user;
-}
-```
-
-- User 객체를 HTTP 응답의 본문으로 변환하여 클라이언트에게 전송.
-- 스프링은 User 객체를 JSON, XML 등의 데이터 형식으로 변환하고, 적절한 HTTP 헤더를 설정하여 클라이언트에게 반환 함.
+- IP 패킷의 시작 부분에 위치한 헤더로, 다음과 같은 중요한 정보를 포함
+  - 버전 (Version)
+  - 헤더 길이 (Header Length)
+  - 서비스 유형 (Type of Service, TOS)
+  - 전체 패킷 길이 (Total Length)
+  - 패킷 식별자 (Identification)
+  - 플래그 (Flags)
+  - 생존 시간 (Time to Live, TTL)
+  - 프로토콜 (Protocol)
+  - 헤더 체크섬 (Header Checksum)
+  - 출발지 IP 주소 (Source IP Address)
+  - 목적지 IP 주소 (Destination IP Address)
 
 <br/>
 
-#### RequestParam?
+**데이터 (Data)**
 
-- HTTP 요청의 쿼리 파라미터를 처리하기 위해 사용.
-- 쿼리 파라미터는 URL에 포함된 키-값 쌍으로 클라이언트가 서버에 데이터를 전달하는 데 사용 됨.
-- @RequestParam 어노테이션을 메서드 매개변수 앞에 붙이면 해당 매개변수에 HTTP 요청의 쿼리 파라미터를 자동으로 바인딩 함.
-
-<br/>
-
-**RequestParam 세부 속성**
-
-- name: 쿼리 파라미터의 이름을 명시적으로 지정. 기본적으로 매개변수 이름과 일치 함.
-- required: 필수적인 파라미터인지 여부를 지정. 기본값은 true이며, 필수 파라미터가 누락되면 400 Bad Request 응답이 반환.
-- defaultValue: 쿼리 파라미터가 존재하지 않을 경우 사용할 기본값을 지정 함.
+- IP 패킷에는 실제 데이터가 포함되며, 상위 레벨 프로토콜에 따라 다양한 형식의 데이터가 포함
+  - 예를 들어, 웹 브라우징을 위한 HTTP 요청 또는 응답 데이터, 이메일 메시지, 파일 전송 데이터 등이 포함
 
 <br/>
 
-**@RequestParam**
+**목적지 IP 주소와 라우팅**
 
-```java
-@GetMapping("/users")
-public ResponseEntity<User> getUser(
-    @RequestParam(name = "id", defaultValue = "0") int id,
-    @RequestParam(name = "name", required = false) String name
-) {
-    // id와 name을 사용하여 사용자 정보를 조회하고 User 객체를 반환합니다.
-    // ...
-    return ResponseEntity.ok(user);
-}
-```
+- IP 패킷의 목적지 IP 주소를 기반으로 네트워크에서 라우팅 결정이 내려지고, 각 라우터는 패킷의 목적지 주소를 검사하고 적절한 경로로 패킷을 전달
+  - 이러한 과정을 통해 데이터가 목적지로 안전하게 전송
 
-- @RequestParam("id") 어노테이션은 id라는 이름의 쿼리 파라미터 값을 int 타입의 id 매개변수에 자동으로 바인딩 됨.
-- /users?id=1과 같은 요청이 들어오면 id에 1이 할당되어 사용자 정보를 조회하고, ResponseEntity.ok()를 사용하여 HTTP 응답을 반환 함.
+<br/>
+
+#### IP 프로토콜의 한계
+
+1. 비연결성: 수신자의 상태를 확인하지 않고 데이터를 보내기 때문에 데이터 손실이 발생
+2. 비신뢰성: 중간에 패킷이 사라지면(예: 네트워크 혼잡), IP는 이를 해결하지 않고 데이터 손실이 발생 함(패킷 소실). 또한 패킷이 순서대로 도착하지 않을 수 있으며, IP 역시 이를 해결하지 않음(패킷 전달 순서 문제).
+3. 프로그램 구분: IP 주소는 컴퓨터나 장치를 식별하기 위한 것이지 어떤 애플리케이션 또는 프로그램을 구분하기 위한 것이 아니므로, 같은 IP 주소를 사용하는 서버에서 여러 애플리케이션이 동시에 통신하는 경우, IP 주소만으로는 어떤 애플리케이션이 통신 중인지 알 수 없음.
+
+<br/>
+
+#### TCP
+
+<br/>
+
+#### UDP
+
+<br/>
+
+#### PORT
+
+<br/>
+
+#### DNS
 
 <br/>
 
@@ -106,5 +86,5 @@ public ResponseEntity<User> getUser(
 ### 참고 사이트
 
 <hr>
-[[Spring] @RequestBody / @ResponseBody 어노테이션 이란?](https://cheershennah.tistory.com/179)
+[[모든 개발자를 위한 HTTP 웹 기본 지식] 01. 인터넷 네트워크 - 인터넷 통신, IP(인터넷 프로토콜)](https://hseungyeon.tistory.com/424)
 <br/>
