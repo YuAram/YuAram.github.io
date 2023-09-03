@@ -198,6 +198,8 @@ categories: spring
 
 <hr>
 [[모든 개발자를 위한 HTTP 웹 기본 지식] 01. 인터넷 네트워크 - 인터넷 통신, IP(인터넷 프로토콜)](https://hseungyeon.tistory.com/424)
+<br/>
 [[모든 개발자를 위한 HTTP 웹 기본 지식] 01. 인터넷 네트워크 - 인터넷 통신, TCP, UDP](https://hseungyeon.tistory.com/425)
+<br/>
 [[모든 개발자를 위한 HTTP 웹 기본 지식] 01. 인터넷 네트워크 - 인터넷 통신, PORT, DNS](https://hseungyeon.tistory.com/426)
 <br/>
