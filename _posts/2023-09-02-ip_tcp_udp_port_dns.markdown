@@ -2,7 +2,7 @@
 layout: post
 title: "[HTTP웹기본지식_인프런] 인터넷 네트워크 - IP, TCP, UDP, PORT, DNS"
 date: 2023-09-02 00:00:00 +0530
-categories: spring
+categories: http
 ---
 
 <br/>
